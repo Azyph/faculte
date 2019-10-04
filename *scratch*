@@ -1,0 +1,39 @@
+;; This buffer is for notes you don't want to save, and for Lisp evaluation.
+;; If you want to create a file, visit that file with C-x C-f,
+;; then enter the text in that file's own buffer.
+
+
+.pos 0
+
+    mrmovl n, %eax
+    xorl %ebx, %ebx
+    
+    irmovl 4, %esi
+    irmovl 0, %edi
+
+boucle:
+    mrmovl n , %eax 
+    isubl 1, %eax
+    subl %ebx, %eax
+    jle fin
+
+    mrmovl t(%esi), %edx
+    rmmovl %edx, t(%edi)
+
+
+    iaddl 4, %esi
+    iaddl 4, %edi
+    iaddl 1, %ebx
+    jmp boucle
+fin:
+    .halt 
+
+
+.pos 0x70
+
+t:  .long 1
+    .long 2
+    .long 3
+    .long 4
+    
+n: .long 4
